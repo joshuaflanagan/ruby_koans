@@ -78,16 +78,26 @@ class AboutIteration < EdgeCase::Koan
     assert_equal __([11, 12, 13]), result
 
     # Files act like a collection of lines
-    file = File.open("example_file.txt")
-    upcase_lines = file.map { |line| line.strip.upcase }
-    assert_equal __(["THIS", "IS", "A", "TEST"]), upcase_lines
+    File.open("example_file.txt") do |file|
+      upcase_lines = file.map { |line| line.strip.upcase }
+      assert_equal __(["THIS", "IS", "A", "TEST"]), upcase_lines
+    end
 
     # NOTE: You can create your own collections that work with each,
     # map, select, etc.
-  ensure
-    # Arg, this is ugly.
-    # We will figure out how to fix this later.
-    file.close if file
   end
+
+  # Bonus Question:  In the previous koan, we saw the construct:
+  #
+  #   File.open(filename) do |file|
+  #     # code to read 'file'
+  #   end
+  #
+  # Why did we do it that way instead of the following?
+  #
+  #   file = File.open(filename)
+  #   # code to read 'file'
+  #
+  # When you get to the "AboutSandwichCode" koan, recheck your answer.
 
 end
